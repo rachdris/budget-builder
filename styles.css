@@ -1,0 +1,323 @@
+/* ============================================================================
+   Pinecone Budget Builder — 02.1 Core Interface palette
+   MOBILE FIRST. Base styles target ~360px; media queries add the wider layout.
+   Inputs are 16px throughout: anything smaller makes iOS Safari zoom on focus.
+   ========================================================================= */
+/* Source Sans 3 ships as a VARIABLE font (verified: it has an fvar table), so
+   one 28KB file covers 400-700 as real weights, not synthesised bold. It used
+   to be declared three times against three byte-identical copies — 57KB and
+   two requests of pure waste. Fonts live in this folder so it deploys alone. */
+@font-face { font-family:'Source Sans 3'; font-weight:400 700; font-display:swap;
+  src:url('fonts/SourceSans3-var.woff2') format('woff2'); }
+@font-face { font-family:'Source Serif 4'; font-weight:900; font-display:swap;
+  src:url('fonts/SourceSerif4-900.woff2') format('woff2'); }
+
+:root{
+  color-scheme:only light;
+  --navy:#0D3B4F; --light-teal:#006F7A; --new-sky:#5C9DAE; --dark-palo:#014240;
+  --palo-alto:#1B6D5F; --palo-verde:#279989; --bay:#6FA287;
+  --berry:#C21F70; --brick:#651C32; --cardinal:#8C1515;
+  --mist:#F4F4F4; --fog:#DAD7CB; --driftwood:#B6B1A9; --charcoal:#231F20;
+  --ink:var(--charcoal); --muted:#5D6A72; --line:#E3E6E5; --card:#FFF;
+  --sans:'Source Sans Pro','Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --serif:'Source Serif 4',Georgia,serif;
+  --bar-h:62px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--mist);color:var(--ink);font:16px/1.5 var(--sans);
+  -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+h1,h2,h3{margin:0;line-height:1.22;letter-spacing:-.01em}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+ul{margin:0;padding:0;list-style:none}
+
+/* ---------------------------------------------------------------- top bar */
+.topbar{background:var(--navy);color:#fff;padding:10px 0;position:sticky;top:0;z-index:20}
+.topbar .in{max-width:1080px;margin:0 auto;padding:0 16px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px}
+.brand{font-weight:700;font-size:14px;line-height:1.15}
+.brand small{display:block;font-weight:400;font-size:10px;opacity:.7;
+  letter-spacing:.05em;text-transform:uppercase}
+.track{display:flex;gap:3px;flex:1;max-width:200px}
+.track i{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.22)}
+.track i.done{background:var(--palo-verde)}
+.track i.now{background:#fff}
+.stepcount{font-size:11.5px;opacity:.82;white-space:nowrap}
+
+/* ----------------------------------------------------------------- layout */
+.wrap{max-width:1080px;margin:0 auto;padding:14px 16px calc(var(--bar-h) + 26px)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 15px 18px}
+aside{display:none}                       /* sidebar is desktop-only */
+
+/* ------------------------------------------------------------ step header */
+.stephead{display:flex;align-items:center;gap:10px;margin-bottom:3px}
+.snum{width:26px;height:26px;border-radius:50%;background:var(--brick);color:#fff;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;line-height:1}
+.stephead h1{font-size:21px}
+.steplede{color:var(--muted);font-size:14.5px;margin:3px 0 14px}
+.rule{height:2px;background:var(--brick);opacity:.9;margin:0 0 14px;border-radius:1px}
+.label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--light-teal);margin:0 0 8px}
+.helper{font-size:13.5px;color:var(--muted);margin-top:6px}
+.secgap{margin-top:22px}
+
+/* ----------------------------------------------------------------- inputs */
+.inp{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:11px 12px;
+  font:16px var(--sans);color:var(--ink);background:#fff;min-height:44px}
+.inp:focus{outline:0;border-color:var(--light-teal);box-shadow:0 0 0 3px rgba(0,111,122,.1)}
+.money{position:relative}
+.money .sym{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.money .inp{padding-left:26px}
+.sel{appearance:none;background:#fff;background-image:
+  linear-gradient(45deg,transparent 50%,var(--muted) 50%),
+  linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:30px}
+.field{margin-top:15px}
+.field>label{display:block;font-weight:600;font-size:15px;margin-bottom:7px}
+.row2{display:grid;grid-template-columns:1fr;gap:9px}
+.opt{font-weight:400;font-size:12px;color:var(--driftwood);text-transform:uppercase;letter-spacing:.06em}
+
+/* ---------------------------------------------------------------- buttons */
+.btn{background:var(--palo-alto);color:#fff;border:0;border-radius:9px;padding:13px 20px;
+  font-size:16px;font-weight:700;min-height:48px;width:100%}
+.btn:hover{background:var(--dark-palo)}
+.btn:disabled{background:var(--driftwood);cursor:default}
+.btn.ghost{background:#fff;color:var(--palo-alto);border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--palo-alto)}
+.btn.sm{width:auto;padding:10px 15px;font-size:15px;min-height:44px}
+.skip{background:none;border:0;color:var(--muted);font-size:14px;text-decoration:underline;
+  padding:10px 2px;min-height:44px}
+.rm{background:none;border:0;color:var(--driftwood);font-size:22px;line-height:1;
+  padding:0 6px;min-width:36px;min-height:36px}
+.rm:hover{color:var(--brick)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:22px}
+.nav .navend{display:flex;align-items:center;gap:6px}
+.nav .btn{width:auto;min-width:112px}
+.rowbtns{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-top:9px;flex-wrap:wrap}
+
+/* --------------------------------------------------------------- goal rows */
+.goalrow{border:1px solid var(--line);border-radius:9px;padding:12px;
+  margin-bottom:9px;background:#FCFDFD;display:flex;align-items:center;gap:6px}
+.goalrow>.inp{flex:1 1 auto;min-width:0}
+.range2{display:grid;grid-template-columns:1fr 1fr;gap:10px}  /* stays 2-up on phones */
+/* income rows keep the same shell but stack, so undo the row layout there */
+.goalrow:has(.goalrow-top){display:block}
+.goalrow-top{display:flex;align-items:center;gap:6px}
+.goalrow-top>.inp{flex:1 1 auto;min-width:0}
+.examples{margin-top:12px;padding:12px;background:#F7FAFA;border:1px solid var(--line);border-radius:9px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:9px 14px;
+  font-size:14px;min-height:40px}
+.chip:hover{border-color:var(--new-sky)}
+.chip.muted{opacity:.45}
+
+/* ------------------------------------------------------------ income rows */
+.varies{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;
+  color:var(--muted);min-height:40px}
+.varies input{width:20px;height:20px;accent-color:var(--palo-alto)}
+.permonth{display:block;margin-top:8px;font-size:14px;font-weight:700;color:var(--palo-alto)}
+.runtot{font-size:14px;color:var(--muted)}
+.runtot b{font-family:var(--serif);font-size:18px;color:var(--navy);margin-left:4px}
+.tipline{background:#F1F7F5;border-left:3px solid var(--palo-verde);border-radius:0 6px 6px 0;
+  padding:10px 12px;font-size:14px;margin-top:11px}
+
+/* -------------------------------------------------------- expense groups */
+.sechead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:11px}
+.sectot{font-family:var(--serif);font-size:22px;font-weight:900;color:var(--navy);
+  white-space:nowrap;text-align:right}
+.sectot small{display:block;font-family:var(--sans);font-size:11px;font-weight:400;color:var(--muted)}
+.gcard{border:1px solid var(--line);border-radius:9px;margin-bottom:7px;background:#fff;overflow:hidden}
+.gcard.open{border-color:var(--new-sky)}
+.gchead{display:grid;grid-template-columns:1fr auto 20px;gap:9px;align-items:center;width:100%;
+  background:none;border:0;padding:13px 12px;text-align:left;min-height:50px}
+.caret{color:var(--muted);display:block;justify-self:end;transition:transform .15s}
+.caret.open{transform:rotate(180deg);color:var(--palo-alto)}
+.gcname{font-size:15px;font-weight:600}
+.gcname.untitled{color:var(--driftwood);font-style:italic}
+.gcmeta{display:none}
+.gctot{font-family:var(--serif);font-size:16px;font-weight:900;color:var(--driftwood);text-align:right}
+.gctot.has{color:var(--navy)}
+.gcbody{padding:2px 12px 13px;border-top:1px solid var(--line);background:#FCFDFD}
+.gquick{padding-top:11px}
+.gquick .skip{display:block;margin-top:4px}
+.gitems{display:grid;gap:11px;padding-top:11px}
+.irow{display:grid;grid-template-columns:1fr 112px 34px;
+  grid-template-areas:'lab lab rm' 'amt frq frq';gap:7px;align-items:center}
+.irow>.inp[data-lk=label]{grid-area:lab}
+.irow>.money{grid-area:amt}
+.irow>.sel{grid-area:frq}
+.irow>.rm{grid-area:rm;justify-self:end}
+.cname{padding-top:11px}
+.cname .inp{font-weight:600}
+.addcat{margin-top:10px}
+.splitbar{margin-top:14px}
+.splitbar .bar{height:9px;border-radius:5px;background:var(--bay);overflow:hidden}
+.splitbar .bar i{display:block;height:100%;background:var(--navy)}
+.splitbar p{font-size:13.5px;color:var(--muted);margin-top:7px}
+.splitbar b{color:var(--ink)}
+
+/* -------------------------------------------------------------- debt panel */
+.debtpanel{border:1px solid var(--line);border-radius:9px;background:#fff;padding:14px 13px;margin-top:20px}
+.debtlist{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:10px}
+.dline{display:flex;justify-content:space-between;gap:12px;padding:11px 12px;
+  border-bottom:1px solid var(--line);font-size:15px}
+.dline:last-child{border-bottom:0}
+.dline .v{font-family:var(--serif);font-weight:900}
+.dline.tot{background:#F7FAFA;font-weight:700}
+.splitnote{font-size:14px;color:var(--muted);margin-top:11px}
+.splitnote b{color:var(--ink)}
+
+/* ---------------------------------------------------------- allocation */
+.leftbox{background:var(--navy);color:#fff;border-radius:10px;padding:15px 16px;margin-bottom:16px}
+.leftbox .k{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;opacity:.72}
+.leftbox .v{font-family:var(--serif);font-size:34px;font-weight:900;line-height:1.05;margin-top:2px}
+.leftbox .n{font-size:13.5px;opacity:.85;margin-top:5px}
+.leftbox.over{background:var(--brick)}
+.dest{border:1px solid var(--line);border-radius:9px;background:#fff;padding:13px;margin-bottom:9px}
+.dest .dhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.dest .dname{font-weight:600;font-size:15px}
+.dest .dsub{font-size:13px;color:var(--muted);margin-top:2px}
+.dest .money{margin-top:9px;max-width:200px}
+.dest .eta{font-size:13.5px;color:var(--palo-alto);font-weight:600;margin-top:8px}
+.dest.must{border-color:var(--palo-alto);background:#F6FAF9}
+
+/* -------------------------------------------------------- the budget sheet */
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sheet h2{background:var(--palo-alto);color:#fff;font-size:11.5px;letter-spacing:.09em;
+  text-transform:uppercase;padding:11px 14px;font-weight:700}
+.sheet .body{padding:6px 14px 14px}
+.sheet .line{display:flex;justify-content:space-between;gap:10px;padding:10px 0;
+  border-bottom:1px solid var(--line);font-size:14.5px}
+.sheet .line:last-of-type{border-bottom:0}
+.sheet .line.pending{color:var(--driftwood)}
+.sheet .line .v{font-weight:700;font-family:var(--serif)}
+.sheet .line small.sub{display:block;font-size:11.5px;color:var(--muted);font-weight:400}
+.sheet .gap{margin-top:11px;background:#EEF4F3;border-radius:8px;padding:11px 12px}
+.sheet .gap .k{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--light-teal)}
+.sheet .gap .v{font-family:var(--serif);font-size:25px;font-weight:900;color:var(--navy)}
+.sheet .gap.over .v{color:var(--brick)}
+.sheet .note{font-size:12.5px;color:var(--muted);margin-top:9px}
+.goalline{display:flex;gap:8px;align-items:baseline;font-size:13.5px;padding:3px 0}
+.gdot{width:7px;height:7px;border-radius:50%;background:var(--palo-alto);flex:0 0 auto;margin-top:6px}
+.gtxt{flex:1}
+
+/* --------------------------------------------- mobile pinned summary bar */
+.sumbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--navy);color:#fff;
+  box-shadow:0 -2px 12px rgba(13,59,79,.2)}
+.sumbar .tap{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
+  background:none;border:0;color:#fff;padding:12px 16px;min-height:var(--bar-h);text-align:left}
+.sumbar .lab{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.sumbar .num{font-family:var(--serif);font-size:24px;font-weight:900;line-height:1.05}
+.sumbar .num.over{color:#F3B7AD}
+.sumbar .chev{font-size:13px;opacity:.8}
+.sumdrawer{max-height:min(70vh,520px);overflow-y:auto;background:var(--mist);
+  padding:12px 16px 18px;border-top:1px solid rgba(255,255,255,.15)}
+.sumbar[hidden]{display:none}
+
+/* -------------------------------------------------------------- desktop */
+@media (min-width:900px){
+  .wrap{padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 300px;
+    gap:18px;align-items:start}
+  .panel{padding:20px 22px 22px}
+  aside{display:block;position:sticky;top:76px}
+  .sumbar{display:none}
+  .topbar .in{padding:0 20px}
+  .track{max-width:300px}
+  .stephead h1{font-size:23px}
+  .row2{grid-template-columns:1fr 1fr}
+  .irow{grid-template-columns:1fr 130px 120px 36px;
+    grid-template-areas:'lab amt frq rm';align-items:center;gap:8px}
+  .btn{width:auto;min-width:150px}
+  .nav .btn{min-width:150px}
+  .gcmeta{display:block;font-size:12.5px;color:var(--muted)}
+  .gchead{grid-template-columns:1fr auto auto 20px;padding:12px 13px}
+}
+
+/* --------------------------------------------- numbered curriculum sections */
+.stepsec{display:flex;align-items:center;gap:9px;margin:0 0 10px;
+  padding-bottom:8px;border-bottom:1px solid var(--line)}
+.stepsec .snum{width:23px;height:23px;font-size:12.5px}
+.stepsec .sname{font-size:14.5px;font-weight:700;color:var(--navy)}
+.secgap .stepsec,.debtpanel .stepsec{margin-top:0}
+.stepsec:not(:first-child){margin-top:24px}
+.minilab{display:block;font-size:12.5px;font-weight:600;margin-bottom:5px}
+.dest.done{background:#F1F7F5;border-color:var(--palo-alto)}
+
+/* ======================================================= screen 5: charts */
+.toggle{display:inline-flex;background:var(--mist);border:1px solid var(--line);
+  border-radius:9px;padding:3px;gap:3px;margin-bottom:14px}
+.tg{background:none;border:0;border-radius:7px;padding:9px 13px;font-size:13.5px;
+  color:var(--muted);min-height:40px}
+.tg.on{background:#fff;color:var(--navy);font-weight:700;box-shadow:0 1px 2px rgba(13,59,79,.12)}
+
+/* ranked bars: identity comes from the label, not the colour, so one hue is
+   correct here — the brand palette can't separate nine categorical hues */
+.bars{display:grid;gap:9px}
+.barrow{display:grid;grid-template-columns:1fr;gap:3px}
+.barrow .bl{font-size:14px;font-weight:600}
+.barrow .bt{display:block;height:12px;background:var(--mist);border-radius:6px;overflow:hidden}
+.barrow .bt i{display:block;height:100%;background:#1B6D5F;border-radius:6px}
+.barrow .bt i.soft{background:var(--driftwood)}   /* not a destination: money still unplanned */
+.barrow .bv{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.barrow .bv small{margin-left:7px;color:var(--driftwood)}
+
+.donutwrap{display:grid;gap:14px;justify-items:center}
+.donut{width:168px;height:168px}
+.legend .ln small{display:block;font-size:12px;font-weight:400;color:var(--muted)}
+.donut .dnum{font-family:var(--serif);font-size:20px;font-weight:900;fill:var(--navy)}
+.donut .dsub{font-size:8px;fill:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.legend{display:grid;gap:8px;width:100%;max-width:340px}
+.legend li{display:grid;grid-template-columns:14px 1fr auto;gap:10px;align-items:center;font-size:14px}
+.legend .sw{width:14px;height:14px;border-radius:4px}
+.legend .lv{font-weight:700;font-variant-numeric:tabular-nums}
+
+/* ----------------------------------------------------- the full statement */
+.statement{margin-top:12px;border:1px solid var(--line);border-radius:9px;background:#fff;padding:4px 13px 13px}
+.stsec{margin-top:13px}
+.stsec h3{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--light-teal);margin-bottom:5px}
+.stline{display:flex;justify-content:space-between;gap:12px;padding:8px 0;
+  border-bottom:1px solid var(--line);font-size:14.5px}
+.stline small{display:block;font-size:12px;color:var(--muted);font-weight:400}
+.stline .v{font-weight:700;font-family:var(--serif);white-space:nowrap}
+.stgroup{margin-bottom:6px}
+.stitem{display:flex;justify-content:space-between;gap:12px;padding:4px 0 4px 13px;
+  font-size:13px;color:var(--muted)}
+.stitem small{font-size:11.5px}
+
+.recap{display:grid;gap:9px}
+.recap li{display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:14px;align-items:start}
+.recap .tick{color:var(--palo-alto);font-weight:700}
+.recap .dash{color:var(--driftwood);font-weight:700;text-align:center}
+.recap .open{display:inline-block;width:11px;height:11px;margin:4px 0 0 2px;border-radius:50%;
+  border:2px solid var(--driftwood)}
+.recap li>span:last-child{font-weight:600}
+.recap li.undone>span:last-child{font-weight:400;color:var(--muted)}
+.recap li small{display:block;font-size:13px;font-weight:400;color:var(--muted);margin-top:1px}
+.jumpstep{display:block;margin-top:2px;padding:0;border:0;background:none;font-size:13px;
+  font-weight:600;color:var(--light-teal);text-decoration:underline}
+
+/* ------------------------------------------------------------------ print */
+@media print{
+  /* Every control comes out: on paper a button is a dead end. */
+  .topbar,.sumbar,.nav,.toggle,.rowbtns,aside,
+  [data-showall],[data-print],.jumpstep{display:none !important}
+  body{background:#fff}
+  .wrap{display:block;padding:0}
+  .panel{border:0;padding:0}
+  .sheet{break-inside:avoid}
+  .stsec,.stgroup,.barrow,.recap li{break-inside:avoid}
+  .stsec h3,.label{break-after:avoid}
+  .stepsec .snum{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .barrow .bt i,.legend .sw,.donut{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (min-width:900px){
+  .barrow{grid-template-columns:190px 1fr 132px;gap:12px;align-items:center}
+  .barrow .bv{text-align:right}
+  .donutwrap{grid-template-columns:168px 1fr;justify-items:start;align-items:center;gap:22px}
+  .donutwrap .helper{grid-column:1 / -1}
+}

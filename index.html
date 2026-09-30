@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0D3B4F" />
+<title>Budget Builder — Pinecone by Stanford</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="in">
+      <div class="brand">Budget Builder<small>Pinecone by Stanford</small></div>
+      <div class="track" id="track"></div>
+      <div class="stepcount" id="stepcount"></div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main class="panel" id="panel"></main>
+    <aside id="aside"></aside>
+  </div>
+
+  <!-- phone only: the running number stays put, tap to see the whole sheet -->
+  <div class="sumbar" id="sumbar" hidden>
+    <button class="tap" id="sumtap">
+      <span><span class="lab" id="sumlab"></span><span class="num" id="sumnum"></span></span>
+      <span class="chev" id="sumchev">&#9652;</span>
+    </button>
+    <div class="sumdrawer" id="sumdrawer" hidden></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
